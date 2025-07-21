@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState,useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react'; // Install lucide-react or replace with SVGs
@@ -6,10 +6,18 @@ import { Menu, X } from 'lucide-react'; // Install lucide-react or replace with 
 function Navbar() {
   const user = useSelector((state) => state.user.user);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  console.log(user);
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  const navlinks = useMemo(() => {
+    const baseLinks = ["Home", "Cars", "Browse", "About", "Contact"];
+    if (user?.email === "malickarslan1122@gmail.com") {
+      baseLinks.push("Admin");
+    }
+    return baseLinks;
+  }, [user]);
 
   return (
     <header className="bg-gray-200 shadow px-4 py-3">
@@ -28,7 +36,7 @@ function Navbar() {
 
         {/* Nav Links (hidden on small screens) */}
         <nav className="hidden md:flex gap-6 text-lg font-medium text-blue-700">
-          {["Home", "Cars", "Browse", "About", "Contact", "Admin"].map((page) => (
+          {navlinks.map((page) => (
             <NavLink
               key={page}
               to={`/${page.toLowerCase() === "home" ? "" : page.toLowerCase()}`}
