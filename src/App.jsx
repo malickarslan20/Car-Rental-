@@ -50,7 +50,7 @@ function App() {
           <ProtectedRoute>
            <Layout><Contact /></Layout>
             </ProtectedRoute>} />
-             {parsedUser.email==="malickarslan1122@gmail.com" && <Route path="/admin" element={<Layout><Admin /></Layout>} />}
+             {parsedUser?.email==="malickarslan1122@gmail.com" && <Route path="/admin" element={<Layout><Admin /></Layout>} />}
         <Route path="/login" element={<Layout><Login /></Layout>} />
         <Route path="/signup" element={<Layout><Signup /></Layout>} />
         <Route path="/logout" element={<Layout><Logout /></Layout>} />
