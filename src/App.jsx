@@ -17,13 +17,14 @@ import { useDispatch } from 'react-redux';
 import { setuser } from './Redux/Slices';
 
 function App() {
+  let parsedUser;
     const dispatch = useDispatch();
   useEffect(() => {
 
       const storedUser = localStorage.getItem("user");
   
   if (storedUser) {
-    const parsedUser = JSON.parse(storedUser); // ✅ Parse first
+     parsedUser = JSON.parse(storedUser); // ✅ Parse first
     console.log(parsedUser.email); // ✅ Now you can access .email
     dispatch(setuser(parsedUser));
   }
@@ -49,7 +50,7 @@ function App() {
           <ProtectedRoute>
            <Layout><Contact /></Layout>
             </ProtectedRoute>} />
-             <Route path="/admin" element={<Layout><Admin /></Layout>} />
+             {parsedUser.email==="malickarslan1122@gmail.com" && <Route path="/admin" element={<Layout><Admin /></Layout>} />}
         <Route path="/login" element={<Layout><Login /></Layout>} />
         <Route path="/signup" element={<Layout><Signup /></Layout>} />
         <Route path="/logout" element={<Layout><Logout /></Layout>} />
